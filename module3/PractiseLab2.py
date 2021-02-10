@@ -3,6 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import sem
 
+plt.style.use('fivethirtyeight')
 # load data set 
 cdc_data = pd.read_csv("http://www.openintro.org/stat/data/cdc.csv")
 # show first few lines of data set
@@ -44,10 +45,11 @@ print("number older than 35:",older_35)
 # 13216 older than 35
 
 # Histogram plot for age 
-hist = cdc_data.hist(column="age",grid=False,bins=25)
+hist = cdc_data.hist(column="age",bins=25, edgecolor='black')
 plt.xlabel("age")
 plt.ylabel("Frequency")
 plt.title("Age distribution")
+plt.tight_layout
 plt.show()
 
 
@@ -59,7 +61,7 @@ print("median age:", median)
 mode = cdc_data["age"].mode()
 print("mode age:", mode)
 
-# Stdev, variance and standeard error
+# Stdev, variance and standard error
 stdev = cdc_data["age"].std()
 variance = cdc_data["age"].var()
 print("stdev:", stdev)
@@ -77,7 +79,7 @@ box = cdc_data.boxplot(column="age")
 plt.xlabel("age")
 plt.ylabel("Frequency")
 plt.title("Age distribution")
-# plt.show()
+plt.show()
 
 
 # calculate BMI
@@ -109,6 +111,7 @@ plt.ylabel("Frequency")
 plt.title("BMI distribution: Woman")
 plt.show()
 
+# comapring mean BMI for men and woman 
 print("mean BMI for men:",cdc_data_men["BMI"].mean())
 print("mean BMI for woman:",cdc_data_women['BMI'].mean())
 

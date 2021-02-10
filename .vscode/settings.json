@@ -1,10 +1,13 @@
 {
-    "python.pythonPath": "/Users/evanedelstein/.virtualenvs/rajiresearch/bin/python",
+    "python.pythonPath": "/Users/evanedelstein/.pyenv/versions/research/bin/python",
     "git.ignoreLimitWarning": true,
+    "workbench.colorTheme": "Visual Studio Dark",
+
     "workbench.colorCustomizations": {
         "statusBar.background": "#25252528",
         "activityBar.background": "#25252528",
         "activityBar.border": "#0202029f",
+
         
         
     
