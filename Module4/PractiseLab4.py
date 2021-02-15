@@ -31,9 +31,11 @@ plt.tight_layout
 mean = np.mean(BMI_data["BMI"])
 print("mean: {}".format(mean))
 print("index points")
+std = np.std(BMI_data["BMI"])
+BMI_data["Z_score"] = (BMI_data["BMI"] - mean)/ std
+print(BMI_data.head())
 for i in range(1,4):
     colors = ["#0000FF","#ff8333","#008000","#FF00FF"]
-    std = np.std(BMI_data["BMI"])
     s1 = mean + std * i
     s2 = mean - std * i 
     print("{} std is {} and {}".format(i,s1,s2))
