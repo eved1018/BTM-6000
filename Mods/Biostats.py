@@ -28,3 +28,10 @@ def dbinom(x,size,prob):
 def pbinom(q,size,prob):
     result=binom.cdf(k=q,n=size,p=prob,loc=0)
     return result
+
+def CT_stats(df,col):
+    mean = df[col].mean()
+    median =df[col].median()
+    mode =df[col].mode()[0]
+    print("mean: {} \nmedian: {} \nmode: {} \n".format(mean,median,mode))
+    
