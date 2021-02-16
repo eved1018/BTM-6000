@@ -2,7 +2,7 @@
 import sys
 sys.path.insert(0, '/Users/evanedelstein/Desktop/School/2021/Spring2021/BTM-6000/Mods')
 from Biostats import *
-import random
+
 
 
 # load and view data set
@@ -21,10 +21,9 @@ CT_stats(sample_60,"Lot.Area")
 sample_120 = ames_data.sample(n=120)
 print("120 samples")
 CT_stats(sample_120,"Lot.Area")
-rand_list = random.sample(range(1, 2930), 500)
 means = []
-for i in rand_list:
-    sample = ames_data.sample(n=i)
+for i in range(0,500):
+    sample = ames_data.sample(n=60)
     mean = sample["Lot.Area"].mean()
     means.append(mean)
 
@@ -44,11 +43,9 @@ print("mean price:",mean_total)
 sample_50 = ames_data.sample(n=50)
 mean_50  = sample_50["SalePrice"].mean()
 print("sample 50 mean:",mean_50)
-# rand_list = random.sample(range(1, 2930), 5000)
 means = []
 for i in range(1,5000):
-    rand  = random.randint(1,2930)
-    sample = ames_data.sample(n=rand)
+    sample = ames_data.sample(n=60)
     mean = sample["SalePrice"].mean()
     means.append(mean)
 
