@@ -10,31 +10,34 @@ ames_data = pd.read_csv("http://www.openintro.org/stat/data/ames.csv")
 # print(ames_data)
 # mean,median and mode lot area
 print("Lot Area")
-CT_stats(ames_data,"Lot.Area")
+CLT_stats(ames_data,"Gr.Liv.Area")
 
 # random sample of 60 observations 
 print("60 samples")
 sample_60 = ames_data.sample(n=60)
-CT_stats(sample_60,"Lot.Area")
+CLT_stats(sample_60,"Gr.Liv.Area")
 
 # sample 120
 sample_120 = ames_data.sample(n=120)
 print("120 samples")
-CT_stats(sample_120,"Lot.Area")
+CLT_stats(sample_120,"Gr.Liv.Area")
 means = []
 for i in range(0,500):
     sample = ames_data.sample(n=60)
-    mean = sample["Lot.Area"].mean()
+    mean = sample["Gr.Liv.Area"].mean()
     means.append(mean)
 
 print("Lot Area mean distribution",np.mean(means),"\n")
+
+# more samples and larger samples -> more accurate estimation of population mean
+
 
 plt.hist(means,edgecolor='black',color="gray")
 plt.tight_layout
 plt.style.use('fivethirtyeight')
 plt.xlabel("mean")
 plt.ylabel("freq")
-# plt.show()
+plt.show()
 
 # SalePrice
 print("sales price")
@@ -51,11 +54,26 @@ for i in range(1,5000):
 
 print("Price mean distribution",np.mean(means),"\n")
 
-Q1 = ames_data['SalePrice'].quantile(0.25)
+Q4 = ames_data['SalePrice'].min()
+Q3 = ames_data['SalePrice'].quantile(0.25)
 Q2 = ames_data['SalePrice'].quantile(0.5)
-Q3 = ames_data['SalePrice'].quantile(0.75)
-Q1I = ames_data[ames_data["SalePrice"] >= Q1]
-mean_Q1I = Q1I["SalePrice"].mean()
-Q3I = ames_data[ames_data["SalePrice"] < Q3]
-mean_Q3I = Q3I["SalePrice"].mean()
-print("total mean: {} \nQ1 mean: {}\nQ3 mean: {}".format(mean_total,mean_Q1I,mean_Q3I))
+Q1 = ames_data['SalePrice'].quantile(0.75)
+max  = ames_data['SalePrice'].max()
+
+Q1I = ames_data[ames_data["SalePrice"] > Q1]
+Q2I = ames_data[(ames_data["SalePrice"] > Q2) & (ames_data["SalePrice"] < Q1)]
+Q3I = ames_data[(ames_data["SalePrice"] > Q3) & (ames_data["SalePrice"] < Q2)]
+Q4I = ames_data[(ames_data["SalePrice"] > Q4) & (ames_data["SalePrice"] < Q3)]
+
+frames = {
+    "Q1 Interval" : Q1I,
+    "Q2 Interval" : Q2I,
+    "Q3 Interval" : Q3I,
+    "Q4 Interval": Q4I
+}
+for i in frames:
+    print("{} observations:".format(i),len(frames[i]) )
+    mean = frames[i]['SalePrice'].mean()
+    print("{} mean:{}".format(i, mean))
+
+

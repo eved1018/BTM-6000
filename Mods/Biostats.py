@@ -29,9 +29,31 @@ def pbinom(q,size,prob):
     result=binom.cdf(k=q,n=size,p=prob,loc=0)
     return result
 
-def CT_stats(df,col):
+def CLT_stats(df,col):
     mean = df[col].mean()
     median =df[col].median()
     mode =df[col].mode()[0]
-    print("mean: {} \nmedian: {} \nmode: {} \n".format(mean,median,mode))
+    stdev = df[col].std()
+    print("mean: {} \nmedian: {} \nmode: {} \nSTDEV: {}\n".format(mean,median,mode,stdev))
     
+
+def Strata(df, col):
+    Q4 = df[col].min()
+    Q3 = df[col].quantile(0.25)
+    Q2 = df[col].quantile(0.5)
+    Q1 = df[col].quantile(0.75)
+    Q1I = df[df[col] > Q1]
+    Q2I = df[(df[col] > Q2) & (df[col] < Q1)]
+    Q3I = df[(df[col] > Q3) & (df[col] < Q2)]
+    Q4I = df[(df[col] > Q4) & (df[col] < Q3)]
+
+    frames = {
+        "Q1 Interval" : Q1I,
+        "Q2 Interval" : Q2I,
+        "Q3 Interval" : Q3I,
+        "Q4 Interval": Q4I
+    }
+    for i in frames:
+        print("{} observations:".format(i),len(frames[i]) )
+        mean = frames[i][col].mean()
+        print("{} mean:{}".format(i, mean))
